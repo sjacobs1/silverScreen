@@ -14,7 +14,8 @@ function TabBarIcon(props: {
 const TabBar = () => {
   return (
     <Tabs
-    screenOptions={{headerShown: false}}>
+    screenOptions={{headerShown: false}}
+    >
         <Tabs.Screen name="index" options={{tabBarIcon: ({color}) => <TabBarIcon name="home" color={color}/>}}/>
         <Tabs.Screen name="search" options={{tabBarIcon: ({color}) => <TabBarIcon name="search" color={color}/>}}/>
     </Tabs>
