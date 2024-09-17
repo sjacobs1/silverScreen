@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getDiscoverMovies } from "../service/getDiscoverMovies";
 import { Result } from "../model/discoverMovie";
 import { LinearGradient } from "expo-linear-gradient";
+import MoviePoster from "../components/moviePoster";
 
 const Home = () => {
   const { isLoading, error, data } = useQuery({
@@ -40,7 +41,7 @@ const Home = () => {
             blurRadius={20}
           >
             <LinearGradient
-              colors={["transparent", "black"]}
+              colors={["transparent", "#09172D"]}
               start={[0.5, 0.1]}
               locations={[0.1, 0.9]}
               style={styles.linearGradient}
@@ -62,34 +63,25 @@ const Home = () => {
             </LinearGradient>
           </ImageBackground>
         </View>
-        <Text style={styles.discover}>Discover</Text>
-        <View style={{marginLeft: 15}}>
-          <ScrollView horizontal={true}>
-            {data?.results.slice(1).map((result) => (
-              <View key={result.id}>
-                {/* <Text>{result.title}</Text> */}
-                <Image
-                  style={styles.posters}
-                  source={{
-                    uri: `https://image.tmdb.org/t/p/w500/${result.poster_path}`,
-                  }}
-                />
-              </View>
-            ))}
-          </ScrollView>
-          <ScrollView horizontal={true}>
-            {data?.results.slice(1).map((result) => (
-              <View key={result.id}>
-                {/* <Text>{result.title}</Text> */}
-                <Image
-                  style={styles.posters}
-                  source={{
-                    uri: `https://image.tmdb.org/t/p/w500/${result.poster_path}`,
-                  }}
-                />
-              </View>
-            ))}
-          </ScrollView>
+        <View>
+          <View
+            style={styles.sectionHeaderContainer}
+          >
+            <Text style={styles.discover}>Discover</Text>
+            <Text style={{ color: "white" }}>See all</Text>
+          </View>
+          <View style={styles.restOfContentContainer}>
+            <ScrollView
+              horizontal={true}
+              contentContainerStyle={{ gap: 15 }}
+              showsHorizontalScrollIndicator={false}
+              style={{ paddingBottom: 10 }}
+            >
+              {data?.results.slice(1).map((result) => (
+                <MoviePoster key={result.id} movie={result} />
+              ))}
+            </ScrollView>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -114,7 +106,7 @@ const styles = StyleSheet.create({
   },
   focusMovieButtons: {
     borderColor: "white",
-    borderRadius: 10,
+    borderRadius: 20,
     borderWidth: 0.5,
     padding: 5,
     width: 80,
@@ -130,6 +122,7 @@ const styles = StyleSheet.create({
     height: 424,
     width: 283,
     marginBottom: 15,
+    borderRadius: 10,
   },
   focusButtonContainer: {
     width: "50%",
@@ -139,16 +132,28 @@ const styles = StyleSheet.create({
   posters: {
     height: 140,
     width: 93,
+    borderRadius: 5,
   },
   mainContainer: {
-    backgroundColor: "black",
+    backgroundColor: "#09172D",
+    // backgroundColor: "black",
   },
   discover: {
     color: "white",
     fontSize: 20,
     fontWeight: "bold",
-    marginTop: 10,
+    // marginTop: 10,
+    // marginLeft: 15,
+    // marginBottom: 10,
+  },
+  restOfContentContainer: {
     marginLeft: 15,
-    marginBottom: 10,
+    gap: 10,
+  },
+  sectionHeaderContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: 15,
+    alignItems: "center",
   }
 });

@@ -27,6 +27,8 @@ const TabBar = () => {
       <Tabs.Screen
         name="index"
         options={{
+            title: "",
+          headerStyle: { backgroundColor: "red",},
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />

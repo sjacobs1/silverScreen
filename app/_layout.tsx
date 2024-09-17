@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import { Stack } from "expo-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { StatusBar } from "expo-status-bar";
+import { StatusBar } from "react-native";
 
 const queryClient = new QueryClient();
 
@@ -12,7 +12,8 @@ const RootLayout = () => {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
-      <StatusBar style="light"/>
+      <StatusBar barStyle="light-content" />
+
     </QueryClientProvider>
   );
 };
