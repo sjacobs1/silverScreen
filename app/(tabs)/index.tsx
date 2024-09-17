@@ -11,14 +11,22 @@ import React from "react";
 import { SafeAreaView } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { getDiscoverMovies } from "../service/getDiscoverMovies";
+import { getDiscoverSeries } from "../service/getDiscoverSeries";
 import { Result } from "../model/discoverMovie";
 import { LinearGradient } from "expo-linear-gradient";
 import MoviePoster from "../components/moviePoster";
+import SeriesPoster from "../components/seriesPoster";
+import { DiscoverSeries } from "../model/discoverSeries";
 
 const Home = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["movies"],
     queryFn: getDiscoverMovies,
+  });
+
+  const { data: dataSeries } = useQuery({
+    queryKey: ["series"],
+    queryFn: getDiscoverSeries,
   });
 
   if (isLoading) {
@@ -81,6 +89,23 @@ const Home = () => {
                 <MoviePoster key={result.id} movie={result} />
               ))}
             </ScrollView>
+            <View
+            style={styles.tvSectionHeaderContainer}
+          >
+            <Text style={styles.discover}>TV</Text>
+            <Text style={{ color: "white" }}>See all</Text>
+          </View>
+            <ScrollView
+              horizontal={true}
+              contentContainerStyle={{ gap: 15 }}
+              showsHorizontalScrollIndicator={false}
+              style={{ paddingBottom: 10 }}
+            >
+              {dataSeries?.results.map((result) => (
+                <SeriesPoster key={result.id} series={result} />
+              ))}
+            </ScrollView>
+
           </View>
         </View>
       </ScrollView>
@@ -93,7 +118,7 @@ export default Home;
 const styles = StyleSheet.create({
   focusMovieView: {
     backgroundColor: "gray",
-    height: 500,
+    height: 450,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -119,8 +144,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   focusPoster: {
-    height: 424,
-    width: 283,
+    height: 374,
+    width: 254,
     marginBottom: 15,
     borderRadius: 10,
   },
@@ -153,7 +178,19 @@ const styles = StyleSheet.create({
   sectionHeaderContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: 15,
+    // margin: 15,
+    // marginTop: 15,
+    marginBottom: 15,
+    marginLeft: 15,
+    marginRight: 15,
+    alignItems: "center",
+  },
+  tvSectionHeaderContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    // margin: 15,
+    paddingRight: 15,
+    marginBottom: 15,
     alignItems: "center",
   }
 });
