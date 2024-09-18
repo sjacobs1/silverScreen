@@ -17,6 +17,10 @@ import { LinearGradient } from "expo-linear-gradient";
 import MoviePoster from "../components/moviePoster";
 import SeriesPoster from "../components/seriesPoster";
 import { DiscoverSeries } from "../model/discoverSeries";
+import PopularMoviePoster from "../components/popularMoviePoster";
+import { getPopularMovies } from "../service/getPopularMovies";
+import PopularSeriesPoster from "../components/popularSeriesPoster";
+import { getPopularSeries } from "../service/getPopularSeries";
 
 const Home = () => {
   const { isLoading, error, data } = useQuery({
@@ -29,6 +33,16 @@ const Home = () => {
     queryFn: getDiscoverSeries,
   });
 
+  const { data: dataPopularMovies } = useQuery({
+    queryKey: ["popularMovies"],
+    queryFn: getPopularMovies,
+  });
+
+  const { data: dataPopularSeries } = useQuery({
+    queryKey: ["popularSeries"],
+    queryFn: getPopularSeries,
+  });
+
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
@@ -39,7 +53,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.focusMovieView}>
           <ImageBackground
             style={styles.imageBackground}
@@ -72,11 +86,9 @@ const Home = () => {
           </ImageBackground>
         </View>
         <View>
-          <View
-            style={styles.sectionHeaderContainer}
-          >
+          <View style={styles.sectionHeaderContainer}>
             <Text style={styles.discover}>Discover</Text>
-            <Text style={{ color: "white" }}>See all</Text>
+            <Text style={{ color: "#97DFFC" }}>See all</Text>
           </View>
           <View style={styles.restOfContentContainer}>
             <ScrollView
@@ -89,12 +101,10 @@ const Home = () => {
                 <MoviePoster key={result.id} movie={result} />
               ))}
             </ScrollView>
-            <View
-            style={styles.tvSectionHeaderContainer}
-          >
-            <Text style={styles.discover}>TV</Text>
-            <Text style={{ color: "white" }}>See all</Text>
-          </View>
+            <View style={styles.tvSectionHeaderContainer}>
+              <Text style={styles.discover}>TV</Text>
+              <Text style={{ color: "#97DFFC" }}>See all</Text>
+            </View>
             <ScrollView
               horizontal={true}
               contentContainerStyle={{ gap: 15 }}
@@ -105,7 +115,63 @@ const Home = () => {
                 <SeriesPoster key={result.id} series={result} />
               ))}
             </ScrollView>
+          </View>
+          <View style={styles.popularContainer}>
+            <View style={styles.popularHeaderContainer}>
+              <Text style={{ fontSize: 20, color: "#FF8811" }}>
+                ⎮<Text style={styles.popularHeader}>Popular</Text>
+              </Text>
+              {/* <Text style={{ color: "#97DFFC" }}>See all</Text> */}
+            </View>
 
+            <View style={{ marginLeft: 15 }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  paddingRight: 15,
+                  marginBottom: 5,
+                }}
+              >
+                <Text style={{ marginBottom: 5, color: "white" }}>Movies</Text>
+                <Text style={{ color: "#97DFFC" }}>See all</Text>
+              </View>
+
+              <ScrollView
+                horizontal={true}
+                contentContainerStyle={{ gap: 15 }}
+                showsHorizontalScrollIndicator={false}
+                style={{ paddingBottom: 10 }}
+              >
+                {dataPopularMovies?.results.map((result) => (
+                  <PopularMoviePoster key={result.id} movie={result} />
+                ))}
+              </ScrollView>
+            </View>
+            <View style={{ marginLeft: 15, marginTop: 15 }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  paddingRight: 15,
+                  marginBottom: 5,
+                }}
+              >
+                <Text style={{ marginBottom: 5, color: "white" }}>Series</Text>
+                <Text style={{ color: "#97DFFC" }}>See all</Text>
+              </View>
+
+              <ScrollView
+                horizontal={true}
+                contentContainerStyle={{ gap: 15 }}
+                showsHorizontalScrollIndicator={false}
+                style={{ paddingBottom: 10 }}
+              >
+                {dataPopularSeries?.results.map((result) => (
+                  <PopularSeriesPoster key={result.id} series={result} />
+                ))}
+              </ScrollView>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -130,7 +196,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   focusMovieButtons: {
-    borderColor: "white",
+    borderColor: "#97DFFC",
     borderRadius: 20,
     borderWidth: 0.5,
     padding: 5,
@@ -180,7 +246,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     // margin: 15,
     // marginTop: 15,
-    marginBottom: 15,
+    marginBottom: 10,
     marginLeft: 15,
     marginRight: 15,
     alignItems: "center",
@@ -190,7 +256,27 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     // margin: 15,
     paddingRight: 15,
+    marginBottom: 5,
+    alignItems: "center",
+  },
+  popularContainer: {
+    height: 355,
+    backgroundColor: "#21252B",
+    marginTop: 20,
+    paddingTop: 5,
+  },
+  popularHeader: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  popularHeaderContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    // margin: 15,
+    marginRight: 15,
     marginBottom: 15,
     alignItems: "center",
-  }
+    marginLeft: 13,
+  },
 });
