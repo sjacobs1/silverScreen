@@ -10,9 +10,8 @@ import {
 import React from "react";
 import { SafeAreaView } from "react-native";
 import { useQuery } from "@tanstack/react-query";
-import { getDiscoverMovies } from "../service/getDiscoverMovies";
 import { getDiscoverSeries } from "../service/getDiscoverSeries";
-import { Result } from "../model/discoverMovie";
+import { Result } from "../model/nowPlayingMovies";
 import { LinearGradient } from "expo-linear-gradient";
 import MoviePoster from "../components/moviePoster";
 import SeriesPoster from "../components/seriesPoster";
@@ -21,11 +20,14 @@ import PopularMoviePoster from "../components/popularMoviePoster";
 import { getPopularMovies } from "../service/getPopularMovies";
 import PopularSeriesPoster from "../components/popularSeriesPoster";
 import { getPopularSeries } from "../service/getPopularSeries";
+import { getTopRatedMovies } from "../service/getTopRatedMovies";
+import TopRatedMovieCard from "../components/topRatedMovieCard";
+import { getNowPlayingMovies } from "../service/getNowPlayingMovies";
 
 const Home = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["movies"],
-    queryFn: getDiscoverMovies,
+    queryFn: getNowPlayingMovies,
   });
 
   const { data: dataSeries } = useQuery({
@@ -42,6 +44,13 @@ const Home = () => {
     queryKey: ["popularSeries"],
     queryFn: getPopularSeries,
   });
+
+  const { data: dataTopRatedMovies } = useQuery({
+    queryKey: ["topRatedMovies"],
+    queryFn: getTopRatedMovies,
+  });
+
+  const topRatedMovies = dataTopRatedMovies?.results.slice(0, 10);
 
   if (isLoading) {
     return <Text>Loading...</Text>;
@@ -87,7 +96,7 @@ const Home = () => {
         </View>
         <View>
           <View style={styles.sectionHeaderContainer}>
-            <Text style={styles.discover}>Discover</Text>
+            <Text style={styles.discover}>Now Playing</Text>
             <Text style={{ color: "#97DFFC" }}>See all</Text>
           </View>
           <View style={styles.restOfContentContainer}>
@@ -121,7 +130,6 @@ const Home = () => {
               <Text style={{ fontSize: 20, color: "#FF8811" }}>
                 ⎮<Text style={styles.popularHeader}>Popular</Text>
               </Text>
-              {/* <Text style={{ color: "#97DFFC" }}>See all</Text> */}
             </View>
 
             <View style={{ marginLeft: 15 }}>
@@ -171,6 +179,20 @@ const Home = () => {
                   <PopularSeriesPoster key={result.id} series={result} />
                 ))}
               </ScrollView>
+            </View>
+          </View>
+
+          <View style={styles.topRatedContainer}>
+            <View style={styles.popularHeaderContainer}>
+              <Text style={{ fontSize: 20, color: "#FF8811" }}>
+                ⎮<Text style={styles.popularHeader}>Top Rated</Text>
+              </Text>
+              <Text style={{ color: "#97DFFC" }}>See all</Text>
+            </View>
+            <View style={styles.topRatedListContainer}>
+              {topRatedMovies?.map((result) => (
+                <TopRatedMovieCard key={result.id} movie={result} />
+              ))}
             </View>
           </View>
         </View>
@@ -261,8 +283,9 @@ const styles = StyleSheet.create({
   },
   popularContainer: {
     height: 355,
-    backgroundColor: "#21252B",
-    marginTop: 20,
+    // backgroundColor: "red",
+    // backgroundColor: "#21252B",
+    marginTop: 30,
     paddingTop: 5,
   },
   popularHeader: {
@@ -278,5 +301,17 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     alignItems: "center",
     marginLeft: 13,
+  },
+  topRatedContainer: {
+    // height: 355,
+    // width: "100%",
+    backgroundColor: "#09172D",
+    // backgroundColor: "#21252B",
+    marginTop: 40,
+    paddingTop: 5,
+    marginBottom: 30,
+  },
+  topRatedListContainer: {
+    gap: 15,
   },
 });
