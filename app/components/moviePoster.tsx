@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React from "react";
-import { Result } from "../model/discoverMovie";
+import { Result } from "../model/nowPlayingMovies";
 import { formatDate } from "../utils/formatDate";
 import { formatRating } from "../utils/formatRating";
 
@@ -21,7 +21,10 @@ const MoviePoster = ({ movie }: MoviePosterProps) => {
         </Text>
         <View style={styles.secondInfoContainer}>
           <Text style={styles.star}>
-            ★ <Text style={styles.rating}>{formatRating(movie.vote_average)}</Text>
+            ★{" "}
+            <Text style={styles.rating}>
+              {formatRating(movie.vote_average)}
+            </Text>
           </Text>
           <Text style={styles.releaseDate}>
             {formatDate(movie.release_date)}

@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     height: 112,
     width: 200,
     // backgroundColor: "red",
+    
   },
   poster: {
     height: "100%",
@@ -49,7 +50,8 @@ const styles = StyleSheet.create({
     opacity: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 5
+    padding: 5,
+    // borderRadius: 5
   },
   title: {
     color: "white",

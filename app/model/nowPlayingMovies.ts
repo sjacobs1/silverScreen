@@ -1,4 +1,4 @@
-export interface DiscoverMovie {
+export interface NowPlayingMovie {
     page: number
     results: Result[]
     total_pages: number
