@@ -15,7 +15,8 @@ const TabBar = () => {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#375875",
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: "#FF8811",
         tabBarInactiveTintColor: "gray",
         tabBarStyle: {
           backgroundColor: "black",
@@ -27,8 +28,6 @@ const TabBar = () => {
       <Tabs.Screen
         name="index"
         options={{
-            title: "",
-          headerStyle: { backgroundColor: "red",},
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
