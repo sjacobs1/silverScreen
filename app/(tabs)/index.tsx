@@ -113,7 +113,7 @@ const Home = () => {
             </ScrollView>
             <View style={styles.tvSectionHeaderContainer}>
               <Text style={styles.discover}>TV</Text>
-              <Text style={{ color: "#97DFFC" }}>See all</Text>
+              <Link href="/seeAllTV"><Text style={{ color: "#97DFFC" }}>See all</Text></Link>
             </View>
             <ScrollView
               horizontal={true}
@@ -143,7 +143,7 @@ const Home = () => {
                 }}
               >
                 <Text style={{ marginBottom: 5, color: "white" }}>Movies</Text>
-                <Text style={{ color: "#97DFFC" }}>See all</Text>
+                <Link href="/seeAllPopularMovies"><Text style={{ color: "#97DFFC" }}>See all</Text></Link>
               </View>
 
               <ScrollView
@@ -167,7 +167,7 @@ const Home = () => {
                 }}
               >
                 <Text style={{ marginBottom: 5, color: "white" }}>Series</Text>
-                <Text style={{ color: "#97DFFC" }}>See all</Text>
+                <Link href="/seeAllPopularSeries"><Text style={{ color: "#97DFFC" }}>See all</Text></Link>
               </View>
 
               <ScrollView
@@ -188,7 +188,7 @@ const Home = () => {
               <Text style={{ fontSize: 20, color: "#FF8811" }}>
                 ⎮<Text style={styles.popularHeader}>Top Rated</Text>
               </Text>
-              <Text style={{ color: "#97DFFC" }}>See all</Text>
+              <Link href="/seeAllTopRatedMovies"><Text style={{ color: "#97DFFC" }}>See all</Text></Link>
             </View>
             <View style={styles.topRatedListContainer}>
               {topRatedMovies?.map((result) => (

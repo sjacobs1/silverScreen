@@ -1,13 +1,14 @@
 import { View, Text, FlatList, StyleSheet, SafeAreaView } from "react-native";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getNowPlayingMovies } from "../service/getNowPlayingMovies";
 import NowPlayingList from "../components/nowPlayingList";
+import { getDiscoverSeries } from "../service/getDiscoverSeries";
+import TVList from "../components/tvList";
 
-const SeeAllNowPlaying = () => {
-    const { isLoading, error, data } = useQuery({
-        queryKey: ["movies"],
-        queryFn: getNowPlayingMovies,
+const SeeAllTV = () => {
+    const { data: dataSeries } = useQuery({
+        queryKey: ["series"],
+        queryFn: getDiscoverSeries,
       });
 
   return (
@@ -15,16 +16,16 @@ const SeeAllNowPlaying = () => {
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={{ fontSize: 20, color: "#FF8811" }}>
-            ⎮<Text style={styles.header}>Now Playing</Text>
+            ⎮<Text style={styles.header}>TV</Text>
           </Text>
         </View>
         <FlatList
-          data={data?.results}
-          renderItem={({ item }) => <NowPlayingList movie={item} />}
+          data={dataSeries?.results}
+          renderItem={({ item }) => <TVList series={item} />}
           keyExtractor={(item) => item.id.toString()}
           numColumns={3}
           columnWrapperStyle={{ gap: 10 }}
-          contentContainerStyle={{ gap: 10, paddingBottom: 110, }}
+          contentContainerStyle={{ gap: 10, paddingBottom: 110,}}
         //   style={{ marginTop: 10 }}
           showsVerticalScrollIndicator={false}
         />
@@ -33,7 +34,7 @@ const SeeAllNowPlaying = () => {
   );
 };
 
-export default SeeAllNowPlaying;
+export default SeeAllTV;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,12 +1,12 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Result } from '../model/nowPlayingMovies';
+import { Result } from '../model/popularMovies';
 
-interface NowPlayingMovieListProps {
+interface TopRatedMovieListProps {
     movie: Result;
   }
 
-const NowPlayingList = ({movie}: NowPlayingMovieListProps) => {
+const TopRatedMoviesList = ({movie}: TopRatedMovieListProps) => {
   return (
     <View>
       <Image
@@ -17,7 +17,7 @@ const NowPlayingList = ({movie}: NowPlayingMovieListProps) => {
   )
 }
 
-export default NowPlayingList
+export default TopRatedMoviesList
 
 const styles = StyleSheet.create({
     poster: {
