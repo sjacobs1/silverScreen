@@ -3,11 +3,13 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getNowPlayingMovies } from "../service/getNowPlayingMovies";
 import NowPlayingList from "../components/nowPlayingList";
+import { getPopularMovies } from "../service/getPopularMovies";
+import PopularMoviesList from "../components/popularMoviesList";
 
-const SeeAllNowPlaying = () => {
-    const { isLoading, error, data } = useQuery({
-        queryKey: ["movies"],
-        queryFn: getNowPlayingMovies,
+const SeeAllPopularMovies = () => {
+    const { data: dataPopularMovies } = useQuery({
+        queryKey: ["popularMovies"],
+        queryFn: getPopularMovies,
       });
 
   return (
@@ -15,16 +17,16 @@ const SeeAllNowPlaying = () => {
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={{ fontSize: 20, color: "#FF8811" }}>
-            ⎮<Text style={styles.header}>Now Playing</Text>
+            ⎮<Text style={styles.header}>Popular Movies</Text>
           </Text>
         </View>
         <FlatList
-          data={data?.results}
-          renderItem={({ item }) => <NowPlayingList movie={item} />}
+          data={dataPopularMovies?.results}
+          renderItem={({ item }) => <PopularMoviesList movie={item} />}
           keyExtractor={(item) => item.id.toString()}
           numColumns={3}
           columnWrapperStyle={{ gap: 10 }}
-          contentContainerStyle={{ gap: 10, paddingBottom: 110, }}
+          contentContainerStyle={{ gap: 10, paddingBottom: 110,}}
         //   style={{ marginTop: 10 }}
           showsVerticalScrollIndicator={false}
         />
@@ -33,7 +35,7 @@ const SeeAllNowPlaying = () => {
   );
 };
 
-export default SeeAllNowPlaying;
+export default SeeAllPopularMovies;
 
 const styles = StyleSheet.create({
   container: {

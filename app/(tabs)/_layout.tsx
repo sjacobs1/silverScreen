@@ -21,7 +21,7 @@ const TabBar = () => {
         tabBarStyle: {
           backgroundColor: "black",
           borderTopColor: "black",
-          height: 84,
+          height: 70,
         },
       }}
     >
@@ -41,7 +41,38 @@ const TabBar = () => {
         name="seeAllNowPlaying"
         options={{
           href: null,
-          title: "Now Playing",
+          // headerShown: true,
+          // headerStyle: {backgroundColor: "#FF8811"},
+        }}
+      />
+      <Tabs.Screen
+        name="seeAllTV"
+        options={{
+          href: null,
+          // headerShown: true,
+          // headerStyle: {backgroundColor: "#FF8811"},
+        }}
+      />
+      <Tabs.Screen
+        name="seeAllPopularMovies"
+        options={{
+          href: null,
+          // headerShown: true,
+          // headerStyle: {backgroundColor: "#FF8811"},
+        }}
+      />
+      <Tabs.Screen
+        name="seeAllPopularSeries"
+        options={{
+          href: null,
+          // headerShown: true,
+          // headerStyle: {backgroundColor: "#FF8811"},
+        }}
+      />
+      <Tabs.Screen
+        name="seeAllTopRatedMovies"
+        options={{
+          href: null,
           // headerShown: true,
           // headerStyle: {backgroundColor: "#FF8811"},
         }}
