@@ -23,6 +23,7 @@ import { getPopularSeries } from "../service/getPopularSeries";
 import { getTopRatedMovies } from "../service/getTopRatedMovies";
 import TopRatedMovieCard from "../components/topRatedMovieCard";
 import { getNowPlayingMovies } from "../service/getNowPlayingMovies";
+import { Link } from "expo-router";
 
 const Home = () => {
   const { isLoading, error, data } = useQuery({
@@ -97,7 +98,7 @@ const Home = () => {
         <View>
           <View style={styles.sectionHeaderContainer}>
             <Text style={styles.discover}>Now Playing</Text>
-            <Text style={{ color: "#97DFFC" }}>See all</Text>
+            <Link href="/seeAllNowPlaying"><Text style={{ color: "#97DFFC" }}>See all</Text></Link>
           </View>
           <View style={styles.restOfContentContainer}>
             <ScrollView

@@ -37,6 +37,15 @@ const TabBar = () => {
           tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="seeAllNowPlaying"
+        options={{
+          href: null,
+          title: "Now Playing",
+          // headerShown: true,
+          // headerStyle: {backgroundColor: "#FF8811"},
+        }}
+      />
     </Tabs>
   );
 };
