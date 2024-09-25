@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React from "react";
-import { Result } from "../model/nowPlayingMovies";
+import { Result } from "../model/movieModel";
 import { formatDate } from "../utils/formatDate";
 import { formatRating } from "../utils/formatRating";
 
