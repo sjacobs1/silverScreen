@@ -1,6 +1,6 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Result } from '../model/popularSeries';
+import { Result } from '../model/seriesModel';
 
 interface PopularSeriesListProps {
     series: Result;

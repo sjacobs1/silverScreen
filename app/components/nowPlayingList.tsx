@@ -1,6 +1,6 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Result } from '../model/nowPlayingMovies';
+import { Result } from '../model/movieModel';
 
 interface NowPlayingMovieListProps {
     movie: Result;

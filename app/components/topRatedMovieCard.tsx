@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
-import { Result } from "../model/topRatedMovies";
+import { Result } from "../model/movieModel";
 import { formatRating } from "../utils/formatRating";
 import { formatDate } from "../utils/formatDate";
 

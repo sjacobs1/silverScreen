@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
 import React from "react";
-import { Result } from "../model/popularSeries";
+import { Result } from "../model/seriesModel";
 import { LinearGradient } from "expo-linear-gradient";
 
 interface PopularSeriesPosterProps {

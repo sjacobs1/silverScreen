@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React from "react";
 import { formatDate } from "../utils/formatDate";
 import { formatRating } from "../utils/formatRating";
-import { Result } from "../model/discoverSeries";
+import { Result } from "../model/seriesModel";
 
 interface SeriesPosterProps {
   series: Result;

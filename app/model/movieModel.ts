@@ -1,4 +1,4 @@
-export interface TopRatedMovies {
+export interface MovieModel {
     page: number
     results: Result[]
     total_pages: number
