@@ -25,7 +25,7 @@ const SeeAllPopularSeries = () => {
           keyExtractor={(item) => item.id.toString()}
           numColumns={3}
           columnWrapperStyle={{ gap: 10 }}
-          contentContainerStyle={{ gap: 10, paddingBottom: 110,  }}
+          contentContainerStyle={{ gap: 10, paddingBottom: 110, paddingTop: 10 }}
         //   style={{ marginTop: 10 }}
           showsVerticalScrollIndicator={false}
         />

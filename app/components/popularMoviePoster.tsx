@@ -32,7 +32,7 @@ const PopularMoviePoster = ({ movie }: PopularMoviePosterProps) => {
           style={styles.linearGradient}
         >
           <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-            {movie.id}
+            {movie.original_title}
           </Text>
         </LinearGradient>
       </ImageBackground>

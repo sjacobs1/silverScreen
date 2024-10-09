@@ -125,7 +125,7 @@ const Home = () => {
               horizontal={true}
               contentContainerStyle={{ gap: 15, paddingRight: 25 }}
               showsHorizontalScrollIndicator={false}
-              style={{ paddingBottom: 10, paddingHorizontal: 15 }}
+              style={{ paddingBottom: 10, paddingHorizontal: 15, paddingTop:5 }}
             >
               {dataSeries?.results.map((result) => (
                 <SeriesPoster key={result.id} series={result} />
@@ -322,5 +322,6 @@ const styles = StyleSheet.create({
   },
   topRatedListContainer: {
     gap: 15,
+    marginLeft: 15
   },
 });

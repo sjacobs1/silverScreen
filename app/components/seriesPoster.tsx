@@ -3,32 +3,49 @@ import React from "react";
 import { formatDate } from "../utils/formatDate";
 import { formatRating } from "../utils/formatRating";
 import { Result } from "../model/seriesModel";
+import { Link } from "expo-router";
+import { useSeriesState } from "../store/seriesState";
 
 interface SeriesPosterProps {
   series: Result;
 }
 
 const SeriesPoster = ({ series }: SeriesPosterProps) => {
+  const setSelectedSeriesId = useSeriesState(
+    (state) => state.setSelectedSeriesId
+  );
+
+  const handleSelectedSeries = () => {
+    setSelectedSeriesId(series.id);
+  };
+
   return (
-    <View style={styles.seriesCard}>
-      <Image
-        source={{ uri: `https://image.tmdb.org/t/p/w500/${series.poster_path}` }}
-        style={styles.poster}
-      />
-      <View style={styles.posterInfoContainer}>
-        <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
-          {series.original_name}
-        </Text>
-        <View style={styles.secondInfoContainer}>
-          <Text style={styles.star}>
-            ★ <Text style={styles.rating}>{formatRating(series.vote_average)}</Text>
+    <Link href="/seriesDetailsPage" onPress={handleSelectedSeries}>
+      <View style={styles.seriesCard}>
+        <Image
+          source={{
+            uri: `https://image.tmdb.org/t/p/w500/${series.poster_path}`,
+          }}
+          style={styles.poster}
+        />
+        <View style={styles.posterInfoContainer}>
+          <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
+            {series.original_name}
           </Text>
-          <Text style={styles.releaseDate}>
-            {formatDate(series.first_air_date)}
-          </Text>
+          <View style={styles.secondInfoContainer}>
+            <Text style={styles.star}>
+              ★{" "}
+              <Text style={styles.rating}>
+                {formatRating(series.vote_average)}
+              </Text>
+            </Text>
+            <Text style={styles.releaseDate}>
+              {formatDate(series.first_air_date)}
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
+    </Link>
   );
 };
 
