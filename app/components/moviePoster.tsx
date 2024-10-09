@@ -3,14 +3,23 @@ import React from "react";
 import { Result } from "../model/movieModel";
 import { formatDate } from "../utils/formatDate";
 import { formatRating } from "../utils/formatRating";
+import { Link } from "expo-router";
+import { useMovieState } from "../store/movieState";
 
 interface MoviePosterProps {
   movie: Result;
 }
 
 const MoviePoster = ({ movie }: MoviePosterProps) => {
+
+const setSelectedMovieId = useMovieState((state) => state.setSelectedMovieId);
+
+const handleSelectedMovie = () => {
+  setSelectedMovieId(movie.id)
+}
+
   return (
-    <View style={styles.movieCard}>
+    <Link href="/movieDetailsPage" onPress={handleSelectedMovie}><View style={styles.movieCard}>
       <Image
         source={{ uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }}
         style={styles.poster}
@@ -31,7 +40,7 @@ const MoviePoster = ({ movie }: MoviePosterProps) => {
           </Text>
         </View>
       </View>
-    </View>
+    </View></Link>
   );
 };
 
@@ -41,7 +50,8 @@ const styles = StyleSheet.create({
   movieCard: {
     height: 270,
     width: 140,
-    backgroundColor: "#21252B",
+    // backgroundColor: "black",
+    backgroundColor: "#1b2637",
     borderRadius: 5,
     shadowColor: "black",
     shadowOffset: {
@@ -51,6 +61,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 1,
     elevation: 5,
+    // marginTop: 2
   },
   poster: {
     height: 200,

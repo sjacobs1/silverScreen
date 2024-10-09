@@ -13,7 +13,6 @@ const RootLayout = () => {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
       <StatusBar barStyle="light-content" />
-
     </QueryClientProvider>
   );
 };

@@ -1,15 +1,24 @@
 import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
 import React from "react";
-import { Result } from "../model/popularMovies";
+import { Result } from "../model/movieModel";
 import { LinearGradient } from "expo-linear-gradient";
+import { useMovieState } from "../store/movieState";
+import { Link } from "expo-router";
 
 interface PopularMoviePosterProps {
   movie: Result;
 }
 
 const PopularMoviePoster = ({ movie }: PopularMoviePosterProps) => {
+
+  const setSelectedMovieId = useMovieState((state) => state.setSelectedMovieId);
+
+  const handleSelectedMovie = () => {
+    setSelectedMovieId(movie.id)
+  }
+
   return (
-    <View style={styles.container}>
+    <Link href="/movieDetailsPage" onPress={handleSelectedMovie}><View style={styles.container}>
       <ImageBackground
         source={{
           uri: `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`,
@@ -23,11 +32,11 @@ const PopularMoviePoster = ({ movie }: PopularMoviePosterProps) => {
           style={styles.linearGradient}
         >
           <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-            {movie.original_title}
+            {movie.id}
           </Text>
         </LinearGradient>
       </ImageBackground>
-    </View>
+    </View></Link>
   );
 };
 

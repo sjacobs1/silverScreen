@@ -1,14 +1,23 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { KnownFor, Result } from "../model/searchResults";
+import { useMovieState } from "../store/movieState";
+import { Link } from "expo-router";
 
 interface SearchResultsListProps {
   result: Result;
 }
 
 const SearchResultsList = ({ result }: SearchResultsListProps) => {
+
+  const setSelectedMovieId = useMovieState((state) => state.setSelectedMovieId);
+
+  const handleSelectedMovie = () => {
+    setSelectedMovieId(result.id)
+  }
+
   return (
-    <View>
+    <Link href={result.media_type === "movie" ? "/movieDetailsPage" : "/seriesDetailsPage"} onPress={handleSelectedMovie}><View>
       {result.poster_path || result.profile_path ? (
         <Image
           source={{
@@ -28,7 +37,7 @@ const SearchResultsList = ({ result }: SearchResultsListProps) => {
           </Text>
         </View>
       )}
-    </View>
+    </View></Link>
   );
 };
 

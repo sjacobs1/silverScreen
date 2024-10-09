@@ -77,6 +77,22 @@ const TabBar = () => {
           // headerStyle: {backgroundColor: "#FF8811"},
         }}
       />
+      <Tabs.Screen
+        name="movieDetailsPage"
+        options={{
+          href: null,
+          // headerShown: true,
+          // headerStyle: {backgroundColor: "#FF8811"},
+        }}
+      />
+      <Tabs.Screen
+        name="seriesDetailsPage"
+        options={{
+          href: null,
+          // headerShown: true,
+          // headerStyle: {backgroundColor: "#FF8811"},
+        }}
+      />
     </Tabs>
   );
 };

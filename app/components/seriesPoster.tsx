@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   seriesCard: {
     height: 270,
     width: 140,
-    backgroundColor: "#21252B",
+    backgroundColor: "#1b2637",
     borderRadius: 5,
     shadowColor: "black",
     shadowOffset: {
