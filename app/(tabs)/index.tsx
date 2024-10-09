@@ -24,6 +24,7 @@ import { getTopRatedMovies } from "../service/getTopRatedMovies";
 import TopRatedMovieCard from "../components/topRatedMovieCard";
 import { getNowPlayingMovies } from "../service/getNowPlayingMovies";
 import { Link } from "expo-router";
+import { useMovieState } from "../store/movieState";
 
 const Home = () => {
   const { isLoading, error, data } = useQuery({
@@ -53,6 +54,11 @@ const Home = () => {
 
   const topRatedMovies = dataTopRatedMovies?.results.slice(0, 10);
 
+  const setSelectedMovieId = useMovieState((state) => state.setSelectedMovieId);
+  const handleSelectedMovie = () => {
+    setSelectedMovieId(data?.results[0].id ?? null)
+  }
+
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
@@ -78,12 +84,12 @@ const Home = () => {
               locations={[0.1, 0.9]}
               style={styles.linearGradient}
             >
-              <Image
+              <Link href="/movieDetailsPage" onPress={handleSelectedMovie}><Image
                 style={styles.focusPoster}
                 source={{
                   uri: `https://image.tmdb.org/t/p/w500/${data?.results[0].poster_path}`,
                 }}
-              />
+              /></Link>
               <View style={styles.focusButtonContainer}>
                 <Pressable style={styles.focusMovieButtons}>
                   <Text style={{ color: "white" }}> ▶︎ Trailer</Text>
@@ -103,9 +109,9 @@ const Home = () => {
           <View style={styles.restOfContentContainer}>
             <ScrollView
               horizontal={true}
-              contentContainerStyle={{ gap: 15 }}
+              contentContainerStyle={{ gap: 15, paddingTop: 10, paddingRight: 25 }}
               showsHorizontalScrollIndicator={false}
-              style={{ paddingBottom: 10 }}
+              style={{ paddingBottom: 10, paddingHorizontal: 15 }}
             >
               {data?.results.slice(1).map((result) => (
                 <MoviePoster key={result.id} movie={result} />
@@ -117,9 +123,9 @@ const Home = () => {
             </View>
             <ScrollView
               horizontal={true}
-              contentContainerStyle={{ gap: 15 }}
+              contentContainerStyle={{ gap: 15, paddingRight: 25 }}
               showsHorizontalScrollIndicator={false}
-              style={{ paddingBottom: 10 }}
+              style={{ paddingBottom: 10, paddingHorizontal: 15 }}
             >
               {dataSeries?.results.map((result) => (
                 <SeriesPoster key={result.id} series={result} />
@@ -133,7 +139,7 @@ const Home = () => {
               </Text>
             </View>
 
-            <View style={{ marginLeft: 15 }}>
+            <View style={{  }}>
               <View
                 style={{
                   flexDirection: "row",
@@ -142,22 +148,22 @@ const Home = () => {
                   marginBottom: 5,
                 }}
               >
-                <Text style={{ marginBottom: 5, color: "white" }}>Movies</Text>
+                <Text style={{ marginBottom: 5, color: "white", marginLeft: 15 }}>Movies</Text>
                 <Link href="/seeAllPopularMovies"><Text style={{ color: "#97DFFC" }}>See all</Text></Link>
               </View>
 
               <ScrollView
                 horizontal={true}
-                contentContainerStyle={{ gap: 15 }}
+                contentContainerStyle={{ gap: 15, paddingRight: 25 }}
                 showsHorizontalScrollIndicator={false}
-                style={{ paddingBottom: 10 }}
+                style={{ paddingBottom: 10, paddingLeft: 15 }}
               >
                 {dataPopularMovies?.results.map((result) => (
                   <PopularMoviePoster key={result.id} movie={result} />
                 ))}
               </ScrollView>
             </View>
-            <View style={{ marginLeft: 15, marginTop: 15 }}>
+            <View style={{ marginTop: 15 }}>
               <View
                 style={{
                   flexDirection: "row",
@@ -166,15 +172,15 @@ const Home = () => {
                   marginBottom: 5,
                 }}
               >
-                <Text style={{ marginBottom: 5, color: "white" }}>Series</Text>
+                <Text style={{ marginBottom: 5, color: "white", marginLeft: 15 }}>Series</Text>
                 <Link href="/seeAllPopularSeries"><Text style={{ color: "#97DFFC" }}>See all</Text></Link>
               </View>
 
               <ScrollView
                 horizontal={true}
-                contentContainerStyle={{ gap: 15 }}
+                contentContainerStyle={{ gap: 15, paddingRight: 25 }}
                 showsHorizontalScrollIndicator={false}
-                style={{ paddingBottom: 10 }}
+                style={{ paddingBottom: 10, paddingLeft: 15 }}
               >
                 {dataPopularSeries?.results.map((result) => (
                   <PopularSeriesPoster key={result.id} series={result} />
@@ -261,8 +267,9 @@ const styles = StyleSheet.create({
     // marginBottom: 10,
   },
   restOfContentContainer: {
-    marginLeft: 15,
+    // marginLeft: 15,
     gap: 10,
+    // marginTop: 20
   },
   sectionHeaderContainer: {
     flexDirection: "row",
@@ -281,6 +288,7 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     marginBottom: 5,
     alignItems: "center",
+    marginLeft: 15
   },
   popularContainer: {
     height: 355,

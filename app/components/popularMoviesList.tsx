@@ -1,19 +1,29 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Result } from '../model/popularMovies';
+// import { Result } from '../model/popularMovies';
+import { useMovieState } from '../store/movieState';
+import { Result } from '../model/movieModel';
+import { Link } from 'expo-router';
 
 interface PopularMovieListProps {
     movie: Result;
   }
 
 const PopularMoviesList = ({movie}: PopularMovieListProps) => {
+
+  const setSelectedMovieId = useMovieState((state) => state.setSelectedMovieId);
+
+  const handleSelectedMovie = () => {
+    setSelectedMovieId(movie.id)
+  }
+
   return (
-    <View>
+    <Link href="/movieDetailsPage" onPress={handleSelectedMovie}><View>
       <Image
         source={{ uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }}
         style={styles.poster}
       />
-    </View>
+    </View></Link>
   )
 }
 

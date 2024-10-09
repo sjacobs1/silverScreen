@@ -3,6 +3,8 @@ import React from "react";
 import { Result } from "../model/movieModel";
 import { formatRating } from "../utils/formatRating";
 import { formatDate } from "../utils/formatDate";
+import { useMovieState } from "../store/movieState";
+import { Link } from "expo-router";
 
 interface TopRatedMovieProps {
   movie: Result;
@@ -11,8 +13,15 @@ interface TopRatedMovieProps {
 // {movie}: TopRatedMovieProps
 
 const TopRatedMovieCard = ({ movie }: TopRatedMovieProps) => {
+
+  const setSelectedMovieId = useMovieState((state) => state.setSelectedMovieId);
+
+  const handleSelectedMovie = () => {
+    setSelectedMovieId(movie.id)
+  }
+
   return (
-    <View style={styles.container}>
+    <Link href="/movieDetailsPage" onPress={handleSelectedMovie}><View style={styles.container}>
       <Image
         source={{ uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}` }}
         style={styles.poster}
@@ -30,7 +39,7 @@ const TopRatedMovieCard = ({ movie }: TopRatedMovieProps) => {
         <Text style={{color: "white"}}>{`(${formatDate(movie.release_date)})`}</Text>
         </View>
       </View>
-    </View>
+    </View></Link>
   );
 };
 
@@ -39,7 +48,7 @@ export default TopRatedMovieCard;
 const styles = StyleSheet.create({
   container: {
     // backgroundColor: "red",
-    backgroundColor: "#21252B",
+    backgroundColor: "#1b2637",
     // width: "100%",
     height: 100,
     // paddingHorizontal: 5,
