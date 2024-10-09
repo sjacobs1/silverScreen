@@ -3,6 +3,7 @@ import React from "react";
 import { KnownFor, Result } from "../model/searchResults";
 import { useMovieState } from "../store/movieState";
 import { Link } from "expo-router";
+import { useSeriesState } from "../store/seriesState";
 
 interface SearchResultsListProps {
   result: Result;
@@ -16,8 +17,16 @@ const SearchResultsList = ({ result }: SearchResultsListProps) => {
     setSelectedMovieId(result.id)
   }
 
+  const setSelectedSeriesId = useSeriesState(
+    (state) => state.setSelectedSeriesId
+  );
+
+  const handleSelectedSeries = () => {
+    setSelectedSeriesId(result.id);
+  };
+
   return (
-    <Link href={result.media_type === "movie" ? "/movieDetailsPage" : "/seriesDetailsPage"} onPress={handleSelectedMovie}><View>
+    <Link href={result.media_type === "movie" ? "/movieDetailsPage" : "/seriesDetailsPage"} onPress={result.media_type === "movie" ? handleSelectedMovie : handleSelectedSeries}><View>
       {result.poster_path || result.profile_path ? (
         <Image
           source={{
