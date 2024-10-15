@@ -9,6 +9,7 @@ import { formatDate } from "../utils/formatDate";
 import { formatRating } from "../utils/formatRating";
 import { HeartIcon, StarIcon } from "react-native-heroicons/outline";
 import { BookmarkIcon } from "react-native-heroicons/outline";
+import SeasonSegment from "./seasonSegment";
 // import {Marquee} from "react-fast-marquee";
 
 const SeriesDetailsComponent = () => {
@@ -51,11 +52,11 @@ const SeriesDetailsComponent = () => {
             <View style={styles.seriesInfo}>
               <View style={{ height: 125, justifyContent: "space-between" }}>
                 {/* <Marquee> */}
-                  <Text style={styles.seriesTitle}>{data.name}</Text>
+                <Text style={styles.seriesTitle}>{data.name}</Text>
                 {/* </Marquee> */}
-                <Text
-                  style={{ color: "white", fontSize: 13 }}
-                >{`${formatDate(data.first_air_date)}`}</Text>
+                <Text style={{ color: "white", fontSize: 13 }}>{`${formatDate(
+                  data.first_air_date
+                )}`}</Text>
                 <Text style={styles.star}>
                   ★{" "}
                   <Text style={styles.rating}>
@@ -148,7 +149,9 @@ const SeriesDetailsComponent = () => {
         >
           {data.tagline ? data.overview : ""}
         </Text>
+        <Text style={{ color: "white" }}>{data.id}</Text>
       </View>
+      <SeasonSegment numberOfSeasons={data.number_of_seasons} />
     </>
   );
 };
