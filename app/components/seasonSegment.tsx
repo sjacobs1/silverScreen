@@ -1,11 +1,28 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 interface SeasonSegmentProps {
   numberOfSeasons: number;
+  selectedSeason: number;
+  onPress: (seasonNumber: number) => void;
 }
 
-const SeasonSegment = ({ numberOfSeasons }: SeasonSegmentProps) => {
+
+const SeasonSegment = ({ numberOfSeasons, selectedSeason, onPress }: SeasonSegmentProps) => {
+
+  function getTextStyle(season: number) {
+    if (season === selectedSeason) {
+      return styles.selectedSeason;
+    }
+  }
+
+  function getContainerStyle(season: number) {
+    if (season === selectedSeason) {
+      return styles.selectedSeasonContainer;
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.seasonsHeader}>
@@ -20,18 +37,18 @@ const SeasonSegment = ({ numberOfSeasons }: SeasonSegmentProps) => {
           }}
         >
           {Array.from({ length: numberOfSeasons }, (_, i) => (
-            <View key={i + 1} style={styles.individualSeasonContainer}>
+            <Pressable key={i + 1} style={[styles.individualSeasonContainer, getContainerStyle(i + 1)]} onPress={() => onPress(i + 1)}>
               <Text
                 // key={i + 1}
-                style={{
+                style={[{
                   color: "#AAAAAD",
                   fontSize: 15,
                   fontWeight: "300",
-                }}
+                }, getTextStyle(i + 1)]}
               >
                 Season {i + 1}
               </Text>
-            </View>
+            </Pressable>
           ))}
         </ScrollView>
       </View>
@@ -71,5 +88,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // height: 25,
     width: "100%",
+  },
+  selectedSeason: {
+    // color: "#FF8811",
+    color: "#97DFFC",
+    fontWeight: "400",
+  },
+  selectedSeasonContainer: {
+    // borderBottomColor: "#FF8811",
+    borderBottomColor: "#97DFFC",
   }
 });

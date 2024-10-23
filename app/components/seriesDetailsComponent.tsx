@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useSeriesState } from "../store/seriesState";
 import { getSeriesDetails } from "../service/getSeriesDetails";
@@ -10,13 +10,18 @@ import { formatRating } from "../utils/formatRating";
 import { HeartIcon, StarIcon } from "react-native-heroicons/outline";
 import { BookmarkIcon } from "react-native-heroicons/outline";
 import SeasonSegment from "./seasonSegment";
-// import {Marquee} from "react-fast-marquee";
 
 const SeriesDetailsComponent = () => {
   const getSelectedSeriesId = useSeriesState(
     (state) => state.getSelectedSeriesId
   );
   const series = getSelectedSeriesId();
+
+  const [selectedSeason, setSelectedSeason] = useState(1);
+
+  useEffect(() => {
+    setSelectedSeason(1);
+  }, [series]);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["seriesDetails", series],
@@ -151,7 +156,15 @@ const SeriesDetailsComponent = () => {
         </Text>
         <Text style={{ color: "white" }}>{data.id}</Text>
       </View>
-      <SeasonSegment numberOfSeasons={data.number_of_seasons} />
+      <SeasonSegment
+        numberOfSeasons={
+          data.seasons[0].season_number === 1
+            ? data.seasons.length
+            : data.seasons.length - 1
+        }
+        selectedSeason={selectedSeason}
+        onPress={setSelectedSeason}
+      />
     </>
   );
 };
